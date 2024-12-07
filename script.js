@@ -6,7 +6,6 @@ const subjectList = document.getElementById('subjectList');
 const subjectNameInput = document.getElementById('subjectName');
 const timeGoalInput = document.getElementById('timeGoal');
 
-// Подсказка для новых пользователей
 const isFirstVisit = !localStorage.getItem('visited');
 if (isFirstVisit) {
   const guide = document.createElement('div');
@@ -17,7 +16,7 @@ if (isFirstVisit) {
   `;
   document.body.appendChild(guide);
 
-  // Убираем подсказку через 5 секунд
+ 
   setTimeout(() => {
     guide.remove();
   }, 5000);
@@ -26,17 +25,15 @@ if (isFirstVisit) {
 
 let subjects = JSON.parse(localStorage.getItem('subjects')) || [];
 
-// Открытие модального окна
+
 addSubjectButton.addEventListener('click', () => {
   modal.classList.remove('hidden');
 });
 
-// Закрытие модального окна
 closeModalButton.addEventListener('click', () => {
   modal.classList.add('hidden');
 });
 
-// Сохранение предмета
 saveSubjectButton.addEventListener('click', () => {
   const name = subjectNameInput.value.trim();
   const goal = parseFloat(timeGoalInput.value.trim());
@@ -51,14 +48,12 @@ saveSubjectButton.addEventListener('click', () => {
   }
 });
 
-// Удаление предмета
 function deleteSubject(index) {
   subjects.splice(index, 1);
   localStorage.setItem('subjects', JSON.stringify(subjects));
   renderSubjects();
 }
 
-// Рассчёт прошедшего времени
 function calculateElapsedTime(subject) {
   const now = Date.now();
   if (subject.startTime) {
@@ -67,7 +62,6 @@ function calculateElapsedTime(subject) {
   return subject.totalTime;
 }
 
-// Форматирование времени
 function formatTime(seconds) {
   const hrs = Math.floor(seconds / 3600);
   const mins = Math.floor((seconds % 3600) / 60);
@@ -75,14 +69,12 @@ function formatTime(seconds) {
   return `${hrs}ч ${mins}м ${secs}с`;
 }
 
-// Шкала прогресса
 function calculateProgress(subject) {
   const elapsedTime = calculateElapsedTime(subject) / 3600;
   const percentage = Math.min((elapsedTime / subject.goal) * 100, 100);
   return percentage;
 }
 
-// Обновление истории занятий
 function updateHistory(subject, elapsedTime) {
   if (!subject.history) {
     subject.history = [];
@@ -93,7 +85,6 @@ function updateHistory(subject, elapsedTime) {
   }
 }
 
-// Отрисовка списка предметов
 function renderSubjects() {
   subjectList.innerHTML = '';
   subjects.forEach((subject, index) => {
@@ -127,7 +118,6 @@ function renderSubjects() {
   });
 }
 
-// Запуск/остановка таймера
 function toggleTimer(index) {
   const now = Date.now();
   const subject = subjects[index];
@@ -145,10 +135,8 @@ function toggleTimer(index) {
   renderSubjects();
 }
 
-// Автообновление таймеров каждые 1 секунду
 setInterval(() => {
   renderSubjects();
 }, 1000);
 
-// Инициализация
 renderSubjects();
