@@ -146,3 +146,42 @@ button.stop {
 .close-button:hover {
   color: #e53935;
 }
+
+.history {
+  margin-top: 10px;
+}
+
+.history h4 {
+  margin: 0 0 5px;
+  font-size: 1em;
+  color: #6200ea;
+}
+
+.history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.history li {
+  margin-bottom: 5px;
+}
+
+.guide {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 1000;
+}
+
+.guide .arrow {
+  font-size: 2em;
+  color: #6200ea;
+}
