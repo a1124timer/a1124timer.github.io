@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Учебное время</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Учебные предметы</h1>
+    <button id="addSubjectButton">+</button>
+  </header>
+  <main id="subjectList"></main>
+  <div id="modal" class="hidden">
+    <div class="modal-content">
+      <button id="closeModal" class="close-button">&times;</button>
+      <h2>Добавить предмет</h2>
+      <input type="text" id="subjectName" placeholder="Название предмета">
+      <input type="number" id="timeGoal" placeholder="Цель (в часах)" min="0">
+      <button id="saveSubject">Сохранить</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
