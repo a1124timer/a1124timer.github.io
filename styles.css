@@ -106,8 +106,8 @@ button.stop {
 }
 
 .hidden {
-  display: none !important; /* Гарантированное скрытие */
-  visibility: hidden; /* Скрытие из видимости */
+  display: none !important; 
+  visibility: hidden; 
 }
 
 #modal {
