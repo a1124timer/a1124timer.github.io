@@ -176,21 +176,28 @@ function startAutoUpdate() {
         const elapsedTime = Math.floor((Date.now() - subject.currentSessionStartTime) / 1000);
         const totalTime = subject.totalTime + elapsedTime;
 
-        const currentTimeElement = document.getElementById(`current-time-${index}`);
         const totalTimeElement = document.getElementById(`total-time-${index}`);
-
-        if (currentTimeElement) currentTimeElement.textContent = formatTime(elapsedTime);
+        const currentTimeElement = document.getElementById(`current-time-${index}`);
         if (totalTimeElement) totalTimeElement.textContent = formatTime(totalTime);
+        if (currentTimeElement) currentTimeElement.textContent = formatTime(elapsedTime);
 
-        const progressElement = subjectList.querySelector(`.progress:nth-child(${index + 1})`);
+        
+        const progress = Math.min((totalTime / 3600 / subject.goal) * 100, 100);
+        const progressElement = subjectList.querySelector(`.subject:nth-child(${index + 1}) .progress`);
         if (progressElement) {
-          const progress = Math.min((totalTime / 3600 / subject.goal) * 100, 100);
           progressElement.style.width = `${progress}%`;
+        }
+
+        
+        const progressPercentElement = subjectList.querySelector(`.subject:nth-child(${index + 1}) .progress-percent`);
+        if (progressPercentElement) {
+          progressPercentElement.textContent = `${progress.toFixed(1)}% | Цель: ${subject.goal} ч`;
         }
       }
     });
   }, 1000);
 }
+
 
 function renderRecentHistory(history) {
   const recentHistory = history.slice(-3).map(entry => {
