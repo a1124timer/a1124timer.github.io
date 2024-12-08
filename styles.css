@@ -250,3 +250,18 @@ button.stop {
 body, html {
   overflow-x: hidden;
 }
+
+header h1 {
+  margin: 0;
+  font-size: 1.5em;
+  margin-left: 20px; 
+}
+
+header button {
+  transition: color 0.3s ease, transform 0.3s ease; 
+}
+
+header button:hover {
+  color: #ffeb3b; 
+  transform: scale(1.1); 
+}
