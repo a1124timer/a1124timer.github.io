@@ -49,6 +49,32 @@ saveSubjectButton.addEventListener("click", () => {
   timeGoalInput.value = "";
 });
 
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  // Отклоняем автоматическое появление панели установки
+  event.preventDefault();
+  
+  deferredPrompt = event;
+  
+  const installButton = document.createElement('button');
+  installButton.textContent = 'Установить приложение';
+  document.body.appendChild(installButton);
+
+  installButton.addEventListener('click', () => {
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('Пользователь выбрал установить приложение');
+      } else {
+        console.log('Пользователь отклонил установку');
+      }
+      installButton.style.display = 'none';
+    });
+  });
+});
+ 
 function saveSubjects() {
   localStorage.setItem("subjects", JSON.stringify(subjects));
 }
