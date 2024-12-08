@@ -47,22 +47,33 @@ main {
   position: relative;
 }
 
+.subject:hover {
+  background-color: #d1c4e9;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .subject-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.subject-header .delete-button {
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
   background: none;
   border: none;
   font-size: 1.2em;
   color: #e53935;
   cursor: pointer;
+  padding: 0;
+  margin: 0;
 }
 
-.subject-header .delete-button:hover {
-  color: #b71c1c;
+.delete-button:hover {
+  color: #d32f2f;
 }
 
 .subject-footer {
@@ -110,7 +121,7 @@ button.stop {
   visibility: hidden; 
 }
 
-#modal {
+#modal, #detailsModal {
   position: fixed;
   top: 0;
   left: 0;
@@ -120,6 +131,7 @@ button.stop {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
 
 .modal-content {
@@ -132,7 +144,7 @@ button.stop {
   position: relative;
 }
 
-.close-button {
+.close {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -143,45 +155,21 @@ button.stop {
   color: #333;
 }
 
-.close-button:hover {
+.close:hover {
   color: #e53935;
 }
 
-.history {
-  margin-top: 10px;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 
-.history h4 {
-  margin: 0 0 5px;
-  font-size: 1em;
-  color: #6200ea;
+table, th, td {
+  border: 1px solid #ddd;
 }
 
-.history ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 0.9em;
-  color: #333;
-}
-
-.history li {
-  margin-bottom: 5px;
-}
-
-.guide {
-  position: fixed;
-  top: 60px;
-  right: 20px;
-  background: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  z-index: 1000;
-}
-
-.guide .arrow {
-  font-size: 2em;
-  color: #6200ea;
+th, td {
+  padding: 8px;
+  text-align: left;
 }
