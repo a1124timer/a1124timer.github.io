@@ -159,6 +159,50 @@ button.stop {
   color: #e53935;
 }
 
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.modal-content form .form-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.modal-content form label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.modal-content form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.modal-content form button {
+  padding: 10px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #6200ea;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content form button:hover {
+  background-color: #4a00c0;
+}
+
 .recent-history {
   margin-top: 10px;
   background-color: #f4f4f9;
@@ -183,15 +227,26 @@ button.stop {
   margin: 5px 0;
   color: #555;
 }
+
 .details-table {
   max-height: 50vh;
   overflow-y: auto;
 }
 
 #detailsModal .modal-content {
-  max-height: 80vh; 
-  overflow-y: auto; 
+  max-height: 80vh;
+  overflow-y: auto;
 }
+
+#totalTimeSpent {
+  font-weight: bold;
+}
+
+#maxTimeSubject,
+#minTimeSubject {
+  font-weight: bold;
+}
+
 body, html {
   overflow-x: hidden;
 }
