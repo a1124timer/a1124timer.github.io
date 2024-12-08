@@ -117,11 +117,11 @@ button.stop {
 }
 
 .hidden {
-  display: none !important; 
-  visibility: hidden; 
+  display: none !important;
+  visibility: hidden;
 }
 
-#modal, #detailsModal {
+#modal, #detailsModal, #statisticsModal {
   position: fixed;
   top: 0;
   left: 0;
@@ -159,17 +159,27 @@ button.stop {
   color: #e53935;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
+.recent-history {
+  margin-top: 10px;
+  background-color: #f4f4f9;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  color: #333;
 }
 
-table, th, td {
-  border: 1px solid #ddd;
+.recent-history h4 {
+  margin: 0 0 5px 0;
+  font-size: 1em;
 }
 
-th, td {
-  padding: 8px;
-  text-align: left;
+.recent-history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recent-history li {
+  margin: 5px 0;
+  color: #555;
 }
