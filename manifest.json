@@ -1,6 +1,6 @@
 {
   "name": "Время учебы",
-  "short_name": "Таймер",
+  "short_name": "Таймер учебы",
   "description": "Счетчик времени по предметам",
   "start_url": "./index.html",  
   "display": "standalone",  
