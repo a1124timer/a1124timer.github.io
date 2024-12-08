@@ -92,6 +92,16 @@ function deleteSubject(index) {
 
 function renderSubjects() {
   subjectList.innerHTML = '';
+  if (subjects.length === 0) {
+    const emptyMessage = document.createElement('div');
+    emptyMessage.className = 'empty-message';
+    emptyMessage.innerHTML = `
+      <p>Нет предметов, нажмите <strong>+</strong>, чтобы добавить предмет.</p>
+    `;
+    subjectList.appendChild(emptyMessage);
+    return;
+  }
+
   subjects.forEach((subject, index) => {
     const elapsedTime = subject.totalTime;
     const progress = Math.min((elapsedTime / 3600 / subject.goal) * 100, 100);
@@ -127,7 +137,6 @@ function renderSubjects() {
     subjectList.appendChild(div);
   });
 
-  // Обновление времени при загрузке
   updateInitialTimers();
 }
 
