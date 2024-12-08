@@ -80,8 +80,6 @@ function toggleTimer(index) {
 
   saveSubjects();
   renderSubjects();
-  if (intervalId) clearInterval(intervalId);
-  startAutoUpdate();
 }
 
 function deleteSubject(index) {
@@ -107,7 +105,7 @@ function renderSubjects() {
     div.innerHTML = `
       <div class="subject-header">
         <h3>${subject.name}</h3>
-        <span>Общее время: ${formatTime(elapsedTime)}</span>
+        <span>Общее время: <span id="total-time-${index}">${formatTime(elapsedTime)}</span></span>
         <button class="delete-button" onclick="deleteSubject(${index})">&times;</button>
       </div>
       <div class="progress-bar">
@@ -115,7 +113,7 @@ function renderSubjects() {
       </div>
       <div class="progress-percent">${progress.toFixed(1)}% | Цель: ${subject.goal} ч</div>
       <div class="subject-footer">
-        ${subject.currentSessionStartTime ? `<div class="current-session">Текущее занятие: <span id="current-time-${index}">${formatTime(currentSessionTime)}</span></div>` : ''}
+        ${subject.currentSessionStartTime ? `<div class="current-session">Текущее занятие: <span id="current-time-${index}">${formatTime(elapsedTime + currentSessionTime)}</span></div>` : ''}
         <button onclick="toggleTimer(${index})" class="${subject.currentSessionStartTime ? 'stop' : ''}">
           ${subject.currentSessionStartTime ? 'Закончить заниматься' : 'Начать заниматься'}
         </button>
@@ -128,49 +126,43 @@ function renderSubjects() {
     });
     subjectList.appendChild(div);
   });
+
+  // Обновление времени при загрузке
+  updateInitialTimers();
 }
 
-function openDetails(index) {
-  const subject = subjects[index];
-  detailsTableBody.innerHTML = subject.history.length
-    ? subject.history.map((entry, idx) => `
-      <tr>
-        <td>${idx + 1}</td>
-        <td>${formatTime(entry.duration)}</td>
-        <td>${new Date(entry.start).toLocaleString()}</td>
-        <td>${new Date(entry.end).toLocaleString()}</td>
-      </tr>
-    `).join('')
-    : '<tr><td colspan="4">Нет данных</td></tr>';
-  detailsModal.classList.remove('hidden');
+function updateInitialTimers() {
+  subjects.forEach((subject, index) => {
+    if (subject.currentSessionStartTime) {
+      const elapsedTime = Math.floor((Date.now() - subject.currentSessionStartTime) / 1000);
+      const totalTime = subject.totalTime + elapsedTime;
+
+      const totalTimeElement = document.getElementById(`total-time-${index}`);
+      const currentTimeElement = document.getElementById(`current-time-${index}`);
+
+      if (totalTimeElement) totalTimeElement.textContent = formatTime(totalTime);
+      if (currentTimeElement) currentTimeElement.textContent = formatTime(elapsedTime);
+    }
+  });
 }
 
 function startAutoUpdate() {
   intervalId = setInterval(() => {
     subjects.forEach((subject, index) => {
       if (subject.currentSessionStartTime) {
+        const elapsedTime = Math.floor((Date.now() - subject.currentSessionStartTime) / 1000);
+        const totalTime = subject.totalTime + elapsedTime;
+
         const currentTimeElement = document.getElementById(`current-time-${index}`);
-        if (currentTimeElement) {
-          const currentSessionTime = Math.floor((Date.now() - subject.currentSessionStartTime) / 1000);
-          currentTimeElement.textContent = formatTime(currentSessionTime);
+        const totalTimeElement = document.getElementById(`total-time-${index}`);
 
-          subject.totalTime += 1;
-          const elapsedTime = subject.totalTime;
-          const progress = Math.min((elapsedTime / 3600 / subject.goal) * 100, 100);
+        if (currentTimeElement) currentTimeElement.textContent = formatTime(elapsedTime);
+        if (totalTimeElement) totalTimeElement.textContent = formatTime(totalTime);
 
-          const progressBar = document.querySelector(`#subjectList .subject:nth-child(${index + 1}) .progress`);
-          const progressPercent = document.querySelector(`#subjectList .subject:nth-child(${index + 1}) .progress-percent`);
-          if (progressBar) {
-            progressBar.style.width = `${progress}%`;
-          }
-          if (progressPercent) {
-            progressPercent.textContent = `${progress.toFixed(1)}% | Цель: ${subject.goal} ч`;
-          }
-
-          const totalTimeElement = document.querySelector(`#subjectList .subject:nth-child(${index + 1}) .subject-header span`);
-          if (totalTimeElement) {
-            totalTimeElement.textContent = `Общее время: ${formatTime(elapsedTime)}`;
-          }
+        const progressElement = subjectList.querySelector(`.progress:nth-child(${index + 1})`);
+        if (progressElement) {
+          const progress = Math.min((totalTime / 3600 / subject.goal) * 100, 100);
+          progressElement.style.width = `${progress}%`;
         }
       }
     });
@@ -191,13 +183,54 @@ function renderRecentHistory(history) {
     </div>` : '';
 }
 
+function openDetails(index) {
+  const subject = subjects[index];
+  detailsTableBody.innerHTML = subject.history.length
+    ? subject.history.map((entry, idx) => `
+      <tr>
+        <td>${idx + 1}</td>
+        <td>${formatTime(entry.duration)}</td>
+        <td>${new Date(entry.start).toLocaleString()}</td>
+        <td>${new Date(entry.end).toLocaleString()}</td>
+      </tr>
+    `).join('')
+    : '<tr><td colspan="4">Нет данных</td></tr>';
+  detailsModal.classList.remove('hidden');
+}
+
 function openStatistics() {
   const totalTime = subjects.reduce((sum, subj) => sum + subj.totalTime, 0);
   totalTimeSpent.textContent = `Общее время занятий: ${formatTime(totalTime)}`;
 
   const sortedSubjects = [...subjects].sort((a, b) => b.totalTime - a.totalTime);
-  maxTimeSubject.textContent = sortedSubjects[0]?.name || "Нет данных";
-  minTimeSubject.textContent = sortedSubjects[sortedSubjects.length - 1]?.name || "Нет данных";
+
+  if (sortedSubjects.length > 0) {
+    maxTimeSubject.textContent = sortedSubjects[0].name || "Нет данных";
+    const maxTimeElement = document.getElementById("maxTime");
+    if (maxTimeElement) {
+      maxTimeElement.textContent = formatTime(sortedSubjects[0].totalTime);
+    }
+  } else {
+    maxTimeSubject.textContent = "Нет данных";
+    const maxTimeElement = document.getElementById("maxTime");
+    if (maxTimeElement) {
+      maxTimeElement.textContent = "0:00:00";
+    }
+  }
+
+  if (sortedSubjects.length > 1) {
+    minTimeSubject.textContent = sortedSubjects[sortedSubjects.length - 1].name || "Нет данных";
+    const minTimeElement = document.getElementById("minTime");
+    if (minTimeElement) {
+      minTimeElement.textContent = formatTime(sortedSubjects[sortedSubjects.length - 1].totalTime);
+    }
+  } else {
+    minTimeSubject.textContent = "Нет данных";
+    const minTimeElement = document.getElementById("minTime");
+    if (minTimeElement) {
+      minTimeElement.textContent = "0:00:00";
+    }
+  }
 
   const labels = subjects.map(subj => subj.name);
   const data = subjects.map(subj => subj.totalTime / 3600);
@@ -209,16 +242,16 @@ function openStatistics() {
   renderChart(labels, data);
 
   statisticsModal.classList.remove("hidden");
-  showStatisticsButton.disabled = true; 
+  showStatisticsButton.disabled = true;
 
   statisticsCloseButton.addEventListener("click", () => {
     statisticsModal.classList.add("hidden");
-    showStatisticsButton.disabled = false; 
+    showStatisticsButton.disabled = false;
   });
 }
 
-
 showStatisticsButton.addEventListener("click", openStatistics);
+
 
 function renderChart(labels, data) {
   chart = new Chart(subjectChart, {
@@ -240,7 +273,7 @@ function renderChart(labels, data) {
           callbacks: {
             label: (context) => {
               const totalTime = context.raw;
-              return `${context.label}: ${formatTime(totalTime)}`;
+              return `${context.label}: ${formatTime(totalTime * 3600)}`;
             },
           },
         },
@@ -251,37 +284,3 @@ function renderChart(labels, data) {
 
 renderSubjects();
 startAutoUpdate();
-
-function openStatistics() {
-  const totalTime = subjects.reduce((sum, subj) => sum + subj.totalTime, 0);
-  totalTimeSpent.textContent = `Общее время занятий: ${formatTime(totalTime)}`;
-
-  const sortedSubjects = [...subjects].sort((a, b) => b.totalTime - a.totalTime);
-
-  if (sortedSubjects.length > 0) {
-    maxTimeSubject.textContent = sortedSubjects[0].name;
-    document.getElementById("maxTime").textContent = formatTime(sortedSubjects[0].totalTime);
-  } else {
-    maxTimeSubject.textContent = "Нет данных";
-    document.getElementById("maxTime").textContent = "0:00:00";
-  }
-
-  if (sortedSubjects.length > 1) {
-    minTimeSubject.textContent = sortedSubjects[sortedSubjects.length - 1].name;
-    document.getElementById("minTime").textContent = formatTime(sortedSubjects[sortedSubjects.length - 1].totalTime);
-  } else {
-    minTimeSubject.textContent = "Нет данных";
-    document.getElementById("minTime").textContent = "0:00:00";
-  }
-
-  const labels = subjects.map(subj => subj.name);
-  const data = subjects.map(subj => subj.totalTime);
-
-  if (chart) {
-    chart.destroy();
-  }
-
-  renderChart(labels, data);
-
-  statisticsModal.classList.remove("hidden");
-}
