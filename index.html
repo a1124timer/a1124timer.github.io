@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Трекер занятий</title>
+  <title>Время предметов</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
-    <h1>Трекер занятий</h1>
+    <h1>Предметы</h1>
     <div class="header-buttons">
       <button id="showStatisticsButton" title="Общая статистика">📒</button>
       <button id="addSubjectButton" title="Добавить предмет">➕</button>
@@ -19,7 +19,6 @@
     <div id="subjectList"></div>
   </main>
 
-  <!-- Модальное окно добавления предмета -->
   <div id="modal" class="modal hidden">
     <div class="modal-content">
       <span id="closeModal" class="close">&times;</span>
@@ -38,7 +37,6 @@
     </div>
   </div>
 
-  <!-- Модальное окно деталей -->
   <div id="detailsModal" class="modal hidden">
     <div class="modal-content">
       <span id="detailsCloseButton" class="close">&times;</span>
@@ -47,17 +45,15 @@
         <thead>
           <tr>
             <th>#</th>
+            <th>Продолжительность</th>
             <th>Дата, время начала</th>
             <th>Дата, время окончания</th>
-            <th>Продолжительность</th>
           </tr>
         </thead>
         <tbody id="detailsTableBody"></tbody>
       </table>
     </div>
   </div>
-
-  <!-- Модальное окно статистики -->
   <div id="statisticsModal" class="modal hidden">
     <div class="modal-content">
       <span id="statisticsCloseButton" class="close">&times;</span>
