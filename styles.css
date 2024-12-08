@@ -183,3 +183,12 @@ button.stop {
   margin: 5px 0;
   color: #555;
 }
+.details-table {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+#detailsModal .modal-content {
+  max-height: 80vh; 
+  overflow-y: auto; 
+}
