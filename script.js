@@ -217,7 +217,6 @@ function openStatistics() {
   });
 }
 
-
 showStatisticsButton.addEventListener("click", openStatistics);
 
 function renderChart(labels, data) {
