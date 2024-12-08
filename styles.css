@@ -192,3 +192,6 @@ button.stop {
   max-height: 80vh; 
   overflow-y: auto; 
 }
+body, html {
+  overflow-x: hidden;
+}
