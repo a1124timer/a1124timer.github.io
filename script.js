@@ -217,6 +217,7 @@ function openStatistics() {
   });
 }
 
+
 showStatisticsButton.addEventListener("click", openStatistics);
 
 function renderChart(labels, data) {
@@ -235,7 +236,14 @@ function renderChart(labels, data) {
       responsive: true,
       plugins: {
         legend: { position: 'top' },
-        tooltip: { enabled: true },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              const totalTime = context.raw;
+              return `${context.label}: ${formatTime(totalTime)}`;
+            },
+          },
+        },
       },
     },
   });
@@ -243,3 +251,37 @@ function renderChart(labels, data) {
 
 renderSubjects();
 startAutoUpdate();
+
+function openStatistics() {
+  const totalTime = subjects.reduce((sum, subj) => sum + subj.totalTime, 0);
+  totalTimeSpent.textContent = `Общее время занятий: ${formatTime(totalTime)}`;
+
+  const sortedSubjects = [...subjects].sort((a, b) => b.totalTime - a.totalTime);
+
+  if (sortedSubjects.length > 0) {
+    maxTimeSubject.textContent = sortedSubjects[0].name;
+    document.getElementById("maxTime").textContent = formatTime(sortedSubjects[0].totalTime);
+  } else {
+    maxTimeSubject.textContent = "Нет данных";
+    document.getElementById("maxTime").textContent = "0:00:00";
+  }
+
+  if (sortedSubjects.length > 1) {
+    minTimeSubject.textContent = sortedSubjects[sortedSubjects.length - 1].name;
+    document.getElementById("minTime").textContent = formatTime(sortedSubjects[sortedSubjects.length - 1].totalTime);
+  } else {
+    minTimeSubject.textContent = "Нет данных";
+    document.getElementById("minTime").textContent = "0:00:00";
+  }
+
+  const labels = subjects.map(subj => subj.name);
+  const data = subjects.map(subj => subj.totalTime);
+
+  if (chart) {
+    chart.destroy();
+  }
+
+  renderChart(labels, data);
+
+  statisticsModal.classList.remove("hidden");
+}
