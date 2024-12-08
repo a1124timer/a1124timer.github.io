@@ -11,7 +11,7 @@
   <header>
     <h1>Трекер занятий</h1>
     <div class="header-buttons">
-      <button id="showStatisticsButton" title="Общая статистика">📊</button>
+      <button id="showStatisticsButton" title="Общая статистика">📒</button>
       <button id="addSubjectButton" title="Добавить предмет">➕</button>
     </div>
   </header>
@@ -19,20 +19,26 @@
     <div id="subjectList"></div>
   </main>
 
+  <!-- Модальное окно добавления предмета -->
   <div id="modal" class="modal hidden">
     <div class="modal-content">
       <span id="closeModal" class="close">&times;</span>
       <h2>Добавить предмет</h2>
       <form id="subjectForm">
-        <label for="subjectName">Название предмета:</label>
-        <input type="text" id="subjectName" maxlength="10" required>
-        <label for="timeGoal">Цель (в часах):</label>
-        <input type="number" id="timeGoal" min="1" required>
+        <div class="form-row">
+          <label for="subjectName">Название предмета:</label>
+          <input type="text" id="subjectName" maxlength="10" required>
+        </div>
+        <div class="form-row">
+          <label for="timeGoal">Цель (в часах):</label>
+          <input type="number" id="timeGoal" min="1" required>
+        </div>
         <button type="button" id="saveSubject">Сохранить</button>
       </form>
     </div>
   </div>
 
+  <!-- Модальное окно деталей -->
   <div id="detailsModal" class="modal hidden">
     <div class="modal-content">
       <span id="detailsCloseButton" class="close">&times;</span>
@@ -41,9 +47,9 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Продолжительность</th>
             <th>Дата, время начала</th>
             <th>Дата, время окончания</th>
+            <th>Продолжительность</th>
           </tr>
         </thead>
         <tbody id="detailsTableBody"></tbody>
@@ -51,15 +57,16 @@
     </div>
   </div>
 
+  <!-- Модальное окно статистики -->
   <div id="statisticsModal" class="modal hidden">
     <div class="modal-content">
       <span id="statisticsCloseButton" class="close">&times;</span>
       <h2>Общая статистика</h2>
-      <div id="totalTimeSpent"></div>
+      <div id="totalTimeSpent"><strong></strong></div>
       <canvas id="subjectChart"></canvas>
       <div id="extremeTimes">
-        <p>Предмет с наибольшим временем: <span id="maxTimeSubject"></span></p>
-        <p>Предмет с наименьшим временем: <span id="minTimeSubject"></span></p>
+        <p>Предмет с наибольшим временем: <strong id="maxTimeSubject"></strong> (<span id="maxTime"></span>)</p>
+        <p>Предмет с наименьшим временем: <strong id="minTimeSubject"></strong> (<span id="minTime"></span>)</p>
       </div>
     </div>
   </div>
