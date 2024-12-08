@@ -49,31 +49,19 @@ saveSubjectButton.addEventListener("click", () => {
   timeGoalInput.value = "";
 });
 
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (event) => {
-  // Отклоняем автоматическое появление панели установки
-  event.preventDefault();
-  
-  deferredPrompt = event;
-  
-  const installButton = document.createElement('button');
-  installButton.textContent = 'Установить приложение';
-  document.body.appendChild(installButton);
-
-  installButton.addEventListener('click', () => {
-    deferredPrompt.prompt();
-
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('Пользователь выбрал установить приложение');
-      } else {
-        console.log('Пользователь отклонил установку');
-      }
-      installButton.style.display = 'none';
-    });
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then((registration) => {
+        console.log('Service Worker успешно зарегистрирован с областью:', registration.scope);
+      })
+      .catch((error) => {
+        console.log('Ошибка регистрации Service Worker:', error);
+      });
   });
-});
+} else {
+  console.log('Service Worker не поддерживается этим браузером.');
+}
  
 function saveSubjects() {
   localStorage.setItem("subjects", JSON.stringify(subjects));
