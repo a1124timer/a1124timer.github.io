@@ -2,9 +2,9 @@
   "name": "Учебный планировщик",
   "short_name": "MPEiFocus",
   "description": "Управляйте учебным временем!",
-  "start_url": "./index.html",  
-  "display": "standalone",  
-  "background_color": "#ffffff",  
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
   "theme_color": "#8A2BE2",
   "icons": [
     {
@@ -22,12 +22,12 @@
     {
       "src": "/screenshots/screenshot-1-phone.png",
       "sizes": "508x772",
-      "type": "image/png",
+      "type": "image/png"
     },
     {
       "src": "/screenshots/screenshot-2-window.png",
       "sizes": "1917x1033",
-      "type": "image/png",
+      "type": "image/png"
     }
   ]
 }
