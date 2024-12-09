@@ -1,6 +1,6 @@
 {
   "name": "Учебный планировщик",
-  "short_name": "Учебный планировщик",
+  "short_name": "MPEiFocus",
   "description": "Управляйте учебным временем!",
   "start_url": "./index.html",  
   "display": "standalone",  
