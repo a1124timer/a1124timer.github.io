@@ -70,26 +70,5 @@
   </div>
 
   <script src="script.js"></script>
-  <script>
-        let deferredPrompt;
-    if ('beforeinstallprompt' in window) {
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        console.log('Событие beforeinstallprompt сработало!');
-        showInstallPrompt();
-      });
-    }
-
-    function showInstallPrompt() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          console.log('Пользователь выбрал:', choiceResult.outcome);
-          deferredPrompt = null;
-        });
-      }
-    }
-  </script>
 </body>
 </html>
