@@ -17,6 +17,19 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot-1-phone.png",
+      "sizes": "360x640",
+      "type": "image/png",
+      "form_factor": "phone"
+    },
+    {
+      "src": "/screenshots/screenshot-2-window.png",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "window"
+    }
   ]
-  "viewport": "width=device-width, initial-scale=1" 
 }
