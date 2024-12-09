@@ -20,13 +20,23 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshots/screenshot-1-phone.png",
-      "sizes": "508x772",
-      "type": "image/png"
+      "src": "/screenshots/phone1.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpg"
     },
     {
-      "src": "/screenshots/screenshot-2-window.png",
-      "sizes": "1917x1033",
+      "src": "/screenshots/phone2.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpg"
+    },
+    {
+      "src": "/screenshots/phone3.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpg"
+    },
+    {
+      "src": "/screenshots/windows.png",
+      "sizes": "1920x1079",
       "type": "image/png"
     }
   ]
