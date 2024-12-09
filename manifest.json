@@ -1,7 +1,7 @@
 {
   "name": "Учебный планировщик",
   "short_name": "MPEiFocus",
-  "description": "Управляйте учебным временем!",
+  "description": "Проект Группы А-11-24. Управляйте учебным временем!",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
