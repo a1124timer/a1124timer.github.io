@@ -1,7 +1,7 @@
 {
-  "name": "Таймер учебы - Распределение времени",
-  "short_name": "Таймер учебы",
-  "description": "Счетчик времени по предметам",
+  "name": "Учебный планировщик",
+  "short_name": "Учебный планировщик",
+  "description": "Управляйте учебным временем!",
   "start_url": "./index.html",  
   "display": "standalone",  
   "background_color": "#ffffff",  
