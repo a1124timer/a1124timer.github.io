@@ -22,23 +22,30 @@
     {
       "src": "/screenshots/phone1.jpg",
       "sizes": "1080x2400",
-      "type": "image/jpg"
+      "type": "image/jpg",
+      "form_factor": "narrow",
+      "label": "Полный список предметов"
     },
     {
       "src": "/screenshots/phone2.jpg",
       "sizes": "1080x2400",
-      "type": "image/jpg"
+      "type": "image/jpg",
+      "form_factor": "narrow",
+      "label": "Добавление своих собственных предметов"
     },
     {
       "src": "/screenshots/phone3.jpg",
       "sizes": "1080x2400",
-      "type": "image/jpg"
+      "type": "image/jpg",
+      "form_factor": "narrow",
+      "label": "Удобная статистика"
     },
     {
       "src": "/screenshots/windows.png",
       "sizes": "1920x1079",
       "type": "image/png",
-      "form_factor": "wide"
+      "form_factor": "wide",
+      "label": "Полная поддержка компьютеров"
     }
   ]
 }
