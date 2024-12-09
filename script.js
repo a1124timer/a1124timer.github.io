@@ -49,31 +49,6 @@ saveSubjectButton.addEventListener("click", () => {
   timeGoalInput.value = "";
 });
 
-let deferredPrompt;
-
-if ('beforeinstallprompt' in window) {
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    showInstallPrompt();
-  });
-}
-
-function showInstallPrompt() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('Пользователь выбрал установить приложение');
-      } else {
-        console.log('Пользователь отклонил установку');
-      }
-      deferredPrompt = null;
-    });
-  }
-}
-
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/service-worker.js')
