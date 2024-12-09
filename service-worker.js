@@ -1,9 +1,10 @@
-const CACHE_NAME = 'cache-v10'; 
+const CACHE_NAME = 'cache-v11'; 
 const urlsToCache = [
   '/',
   '/index.html',
   '/styles.css',
   '/script.js',
+  '/chart.js',
   '/icon/favicon.ico'
 ];
 
