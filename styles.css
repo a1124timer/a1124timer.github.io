@@ -265,6 +265,7 @@ header button:hover {
   color: #ffeb3b; 
   transform: scale(1.1); 
 }
+
 .current-session {
   margin-bottom: 20px;
 }
