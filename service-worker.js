@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cache-v9';
+const CACHE_NAME = 'cache-v10'; 
 const urlsToCache = [
   '/',
   '/index.html',
@@ -9,16 +9,14 @@ const urlsToCache = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Service Worker: Кеширование файлов');
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
 self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
+  const cacheWhitelist = [CACHE_NAME];  
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -34,9 +32,19 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        return cachedResponse || fetch(event.request);
-      })
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        fetch(event.request).then((networkResponse) => {
+          if (networkResponse) {
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, networkResponse.clone());
+            });
+          }
+        });
+        return cachedResponse;
+      } else {
+        return fetch(event.request);
+      }
+    })
   );
 });
