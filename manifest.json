@@ -3,6 +3,7 @@
   "short_name": "MPEiFocus",
   "description": "Проект Группы А-11-24. Управляйте учебным временем!",
   "start_url": "./index.html",
+  "id": "https://a1124timer.github.io/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#8A2BE2",
